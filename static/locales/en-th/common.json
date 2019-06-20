@@ -1,3 +1,4 @@
 {
-    "hello": "Hello message is english"
+    "hello": "Hello message is english",
+    "change_language": "Change language"
 }

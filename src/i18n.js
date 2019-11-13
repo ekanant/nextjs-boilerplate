@@ -1,10 +1,12 @@
-const NextI18Next = require('next-i18next/dist/commonjs')
+const NextI18Next = require('next-i18next').default
 
-const NextI18NextInstance = new NextI18Next({
-  localeSubpaths: 'foreign',
-  defaultLanguage: 'th-th',
-  otherLanguages: ['en-th'],
-  lowerCaseLng: true
+module.exports = new NextI18Next({
+    localeSubpaths: {
+        'th-th': 'th-th',
+        'en-th': 'en-th',
+    },
+    defaultLanguage: 'th-th',
+    otherLanguages: ['en-th'],
+    lowerCaseLng: true,
+    localePath: './public/static/locales'
 })
-
-module.exports = NextI18NextInstance

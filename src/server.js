@@ -13,8 +13,17 @@ const handle = app.getRequestHandler();
   await app.prepare()
   const server = express()
 
+  server.use(express.urlencoded({ extended: true }))
   server.use(compression()) 
   server.use(nextI18NextMiddleware(nextI18next))
+
+  /*
+  server.get('/', (req, res) => {
+    const actualPage = '/'
+    const queryParams = { locale: req.query.locale }
+    app.render(req, res, actualPage, queryParams)
+  })
+  */
 
   server.get('*', (req, res) => handle(req, res))
 

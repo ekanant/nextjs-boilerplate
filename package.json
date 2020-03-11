@@ -4,9 +4,11 @@
   "scripts": {
     "dev": "node src/server.js",
     "build": "next build",
-    "start": "cross-env NODE_ENV=production node src/server.js"
+    "start": "cross-env NODE_ENV=production node src/server.js",
+    "analyze": "cross-env ANALYZE=true yarn build"
   },
   "dependencies": {
+    "@next/bundle-analyzer": "^9.3.0",
     "bootstrap": "^4.4.1",
     "compression": "^1.7.4",
     "express": "^4.17.1",

@@ -1,3 +1,7 @@
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
+})
+
 function configFontLoader(config, options = {}) {
   let { isServer, name = "[name].[ext]" } = options;
 
@@ -93,8 +97,7 @@ function configCss(config, { isServer, dev } = {}) {
 
   return config;
 }
-
-module.exports = {
+const nextConfig = {
   webpack: (config, options) => {
     // Fixes npm packages that depend on `fs` module
     
@@ -108,3 +111,4 @@ module.exports = {
     return config
   }
 }
+module.exports = withBundleAnalyzer(nextConfig)

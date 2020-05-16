@@ -1,5 +1,3 @@
-import "bootstrap/dist/css/bootstrap.css";
-
 import { withTranslation, i18n } from '@/i18n'
 import Link from 'next/link'
 import React from 'react'

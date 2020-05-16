@@ -2,6 +2,7 @@
 // Event handlers like onClick can't be added to this file
 
 // ./pages/_document.js
+import React from 'react'
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 
 class MyDocument extends Document {

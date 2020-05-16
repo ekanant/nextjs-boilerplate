@@ -14,7 +14,7 @@ const getContent = process.env.NODE_ENV === "production" ? memoize(doGetContent)
 
 class InlineStylesHead extends Head {
   getCssLinks() {
-    return this.__getInlineStyles();
+    return <React.Fragment></React.Fragment>;
   }
 
   __getInlineStyles() {
@@ -33,6 +33,21 @@ class InlineStylesHead extends Head {
   }
 }
 
+const __getInlineStyles = documentProps => {
+  const { assetPrefix, files } = documentProps;
+    if (!files || files.length === 0) return null;
+
+    return files.filter(file => /\.css$/.test(file)).map(file => (
+      <style
+        key={file}
+        data-href={`${assetPrefix}/_next/${file}`}
+        dangerouslySetInnerHTML={{
+          __html: getContent( file),
+        }}
+      />
+    ));
+}
+
 class MyDocument extends Document {
   static async getInitialProps(ctx) {
     const initialProps = await Document.getInitialProps(ctx);
@@ -48,6 +63,7 @@ class MyDocument extends Document {
         <body className="custom_class">
           <Main />
           <NextScript />
+          {__getInlineStyles(this.props)}
         </body>
       </Html>
     );

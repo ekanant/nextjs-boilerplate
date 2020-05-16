@@ -13,6 +13,8 @@ const handle = app.getRequestHandler();
   await app.prepare()
   const server = express()
 
+  await nextI18next.initPromise
+
   server.use(express.urlencoded({ extended: true }))
   server.use(compression()) 
   server.use(nextI18NextMiddleware(nextI18next))

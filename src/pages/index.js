@@ -1,12 +1,12 @@
 import "bootstrap/dist/css/bootstrap.css";
 
-import { withTranslation, i18n } from '../i18n'
+import { withTranslation, i18n } from '@/i18n'
 import Link from 'next/link'
 import React from 'react'
 import PropTypes from 'prop-types'
 
 
-import Head from '../components/head'
+import Head from '@/components/head'
 
 const changeLanguage = (locale) => {
   i18n.changeLanguage(locale)

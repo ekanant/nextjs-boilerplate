@@ -12,27 +12,6 @@ import {resolve} from 'path'
 const doGetContent = (file) => readFileSync(resolve(process.cwd(), ".next", file), "utf8");
 const getContent = process.env.NODE_ENV === "production" ? memoize(doGetContent) : doGetContent;
 
-class InlineStylesHead extends Head {
-  getCssLinks() {
-    return <React.Fragment></React.Fragment>;
-  }
-
-  __getInlineStyles() {
-    const { assetPrefix, files } = this.context._documentProps;
-    if (!files || files.length === 0) return null;
-
-    return files.filter(file => /\.css$/.test(file)).map(file => (
-      <style
-        key={file}
-        data-href={`${assetPrefix}/_next/${file}`}
-        dangerouslySetInnerHTML={{
-          __html: getContent( file),
-        }}
-      />
-    ));
-  }
-}
-
 const __getInlineStyles = documentProps => {
   const { assetPrefix, files } = documentProps;
     if (!files || files.length === 0) return null;
@@ -46,6 +25,21 @@ const __getInlineStyles = documentProps => {
         }}
       />
     ));
+}
+
+class InlineStylesHead extends Head {
+
+  getCssLinks() {
+    /**
+     * I want a style tag int bottom of body for faster FCP.
+     */
+    return <React.Fragment></React.Fragment>;
+    //return this.__getInlineStyles()
+  }
+
+  __getInlineStyles() {
+    return __getInlineStyles(this.context._documentProps)
+  }
 }
 
 class MyDocument extends Document {
